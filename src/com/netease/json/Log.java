@@ -9,7 +9,7 @@ public class Log {
 			"yyyy-mm-dd HH:mm:ss");
 	private static final String format = "%-20s %-8s\t- %s\n";
 
-	private static final int CURRENT_LEVEL = Level.DEBUG;
+	private static final int CURRENT_LEVEL = Level.INFO;
 
 	public static void d(Object o) {
 		if (Level.DEBUG >= CURRENT_LEVEL)
