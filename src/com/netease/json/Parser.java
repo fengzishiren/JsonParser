@@ -226,7 +226,7 @@ public class Parser {
             stack.push(e);
         }
         if (pos != elements.length)
-            Log.e("erro! POS");
+            throw new SyntaxException("数据格式错误，多余的后续数据'" + elements[pos].content + "......'");
         pos = 0; // 从0重新开始
         return e == null ? null : e.content;
     }
