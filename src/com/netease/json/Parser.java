@@ -151,9 +151,9 @@ public class Parser {
      * @return
      */
     public Element asObject(List<Element> eles) {
-        Log.e("待转换为JSONObject的元素信息列表：");
+        Log.w("待转换为JSONObject的元素信息列表：");
         for (Element e : eles) {
-            Log.e("\t" + e);
+            Log.w("\t" + e);
 
         }
         JsonObject jo = null;
