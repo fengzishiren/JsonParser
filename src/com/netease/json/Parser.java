@@ -122,10 +122,9 @@ public class Parser {
      * @return
      */
     public Element asObject(List<Element> eles) {
-        Log.w("待转换为JSONObject的元素信息列表：");
+        Log.d("待转换为JSONObject的元素信息列表：");
         for (Element e : eles) {
-            Log.w("\t" + e);
-
+            Log.d("\t" + e);
         }
         JsonObject jo = null;
         JsonArray ja = null;
@@ -276,7 +275,7 @@ public class Parser {
                 try {
                     res = new BigDecimal(token.content);
                 } catch (NumberFormatException e3) {
-                    throw new SyntaxException("无法识别的字符串：" + token.content + "|");
+                    throw new SyntaxException("无法识别的字符串：" + token.content);
                 }
             }
         }
