@@ -1,3 +1,4 @@
+package com.netease.json;
 public class SyntaxException extends RuntimeException {
 
 	/**

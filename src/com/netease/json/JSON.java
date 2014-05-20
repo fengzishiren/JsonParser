@@ -1,3 +1,4 @@
+package com.netease.json;
 public class JSON {
 
     private static Parser parser = new Parser();

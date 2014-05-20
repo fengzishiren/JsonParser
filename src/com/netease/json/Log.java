@@ -1,3 +1,4 @@
+package com.netease.json;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

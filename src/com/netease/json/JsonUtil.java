@@ -1,3 +1,4 @@
+package com.netease.json;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;

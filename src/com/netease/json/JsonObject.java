@@ -1,3 +1,4 @@
+package com.netease.json;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
