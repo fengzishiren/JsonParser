@@ -1,4 +1,8 @@
 package com.netease.json;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
@@ -13,6 +17,8 @@ import java.util.Set;
 public class JsonUtil {
     private JsonUtil() {
     }
+
+    public static final String NEW_LINE = System.getProperty("line.separator");
 
     public static boolean isPrimitive(Object o) {
         try {
@@ -31,7 +37,7 @@ public class JsonUtil {
 
     private static String toJSON(Object o) {
         if (o instanceof Collection<?>) {
-            
+
             Collection<?> c = (Collection<?>) o;
             StringBuilder sb = new StringBuilder("[");
 
@@ -95,5 +101,22 @@ public class JsonUtil {
         return sb.toString();
     }
 
-}
+    public static final String read(Reader _reader) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(_reader);
 
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append(JsonUtil.NEW_LINE);
+            }
+            sb.delete(sb.length() - NEW_LINE.length(), sb.length());
+        } finally {
+            if (reader != null)
+                reader.close();
+
+        }
+        return sb.toString();
+    }
+}
