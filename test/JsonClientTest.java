@@ -59,7 +59,15 @@ public class JsonClientTest {
     public void testFileJson() throws Exception {
         String json = readJsonFromFile("test.json");
         JsonObject jo = (JsonObject) JSON.fromString(json);
-        System.out.println(jo);
+        Log.i("S: " + jo);
+
+        json = readJsonFromFile("testmiddle.json");
+        jo = (JsonObject) JSON.fromString(json);
+        Log.i("M: " + jo);
+
+        json = readJsonFromFile("testbig.json");
+        jo = (JsonObject) JSON.fromString(json);
+        Log.i("B: " + jo);
     }
 
     private static final String readJsonFromFile(String name) throws IOException {
