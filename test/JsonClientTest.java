@@ -1,5 +1,3 @@
-import static org.junit.Assert.*;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,13 +9,6 @@ import com.netease.json.JsonArray;
 import com.netease.json.JsonObject;
 import com.netease.json.JsonUtil;
 import com.netease.json.Log;
-
-/**
- * @(#)JsonClientTest.java, 2014年5月20日.
- *
- * Copyright 2014 Netease, Inc. All rights reserved.
- * NETEASE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
 
 /**
  *

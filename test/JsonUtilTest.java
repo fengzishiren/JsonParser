@@ -11,14 +11,6 @@ import org.junit.Test;
 
 import com.netease.json.JsonUtil;
 import com.netease.json.Log;
-
-/**
- * @(#)JsonTest.java, 2014年5月20日.
- *
- * Copyright 2014 Netease, Inc. All rights reserved.
- * NETEASE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
-
 /**
  *
  * @author hzzhenglh
