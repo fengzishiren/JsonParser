@@ -1,17 +1,7 @@
 {
-    "test": {
-        "name": "hzzhenglh",
-        "age": 22,
-        "data": {
-            "status": 0,
-            "msg": "OK",
-            "attach": null,
-            "success": true,
-            "permit": true,
-            "a": 23,
-            "money": 2.333333,
-            "l": 1400559566897
-        }
-    },
-    "name": "hzzhenglh"
+   "object_or_array": "array",
+   "empty": false,
+   "parse_time_nanoseconds": 19850,
+   "validate": true,
+   "size": 1
 }
