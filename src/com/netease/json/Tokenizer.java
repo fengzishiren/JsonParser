@@ -50,6 +50,7 @@ public class Tokenizer {
                 index++;
                 while (sens[++index] != '*' || sens[++index] != '/')
                     ;
+                index++; // next
             } else
                 break;
         }
