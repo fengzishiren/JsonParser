@@ -52,12 +52,12 @@ public class JsonClientTest {
         ja = (JsonArray) JSON.fromString(text);
         Log.i(ja);
 
-        Log.e("END!");
+        Log.w("END!");
     }
 
     @Test
     public void testFileJson() throws Exception {
-        String json = readJsonFromFile("test.json");
+        String json = readJsonFromFile("testsmall.json");
         JsonObject jo = (JsonObject) JSON.fromString(json);
         Log.i("S: " + jo);
 
@@ -68,6 +68,10 @@ public class JsonClientTest {
         json = readJsonFromFile("testbig.json");
         jo = (JsonObject) JSON.fromString(json);
         Log.i("B: " + jo);
+        
+        json = readJsonFromFile("test.json");
+        jo = (JsonObject) JSON.fromString(json);
+        Log.i("T: " + jo);
     }
 
     private static final String readJsonFromFile(String name) throws IOException {
