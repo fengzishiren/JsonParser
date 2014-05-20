@@ -1,5 +1,9 @@
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.junit.Test;
 
 import com.netease.json.JSON;
@@ -49,6 +53,24 @@ public class JsonClientTest {
         Log.i(ja);
 
         Log.e("END!");
+    }
+
+    @Test
+    public void testFileJson() throws Exception {
+        String json = readJsonFromFile("test.json");
+        JsonObject jo = (JsonObject) JSON.fromString(json);
+        System.out.println(jo);
+    }
+
+    private static final String readJsonFromFile(String name) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(name));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+        reader.close();
+        return sb.toString();
     }
 
 }
