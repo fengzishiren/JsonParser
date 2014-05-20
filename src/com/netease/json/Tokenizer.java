@@ -1,4 +1,5 @@
 package com.netease.json;
+
 import java.util.ArrayList;
 
 /**
@@ -12,6 +13,7 @@ import java.util.ArrayList;
  * @author lunatic
  */
 public class Tokenizer {
+
     // public static final String TEST_TEXT =
     // "     {\"font_size\": \"14\", \"font_face\": \"Courier 10 Pitch\", \"ignored_packages\": [ \"Vintage\"]}";
 
@@ -38,11 +40,14 @@ public class Tokenizer {
             }
             // skip '// xxx
             else if (c == '/' && sens[index + 1] == '/') {
-                while (sens[++index] != '\n')
+                index++;
+                while (sens[++index] != '\r' && sens[index] != '\n')
                     ;
+                index += JsonUtil.NEW_LINE.length();
             }
             // skip '/* xxx */'
             else if (c == '/' && sens[index + 1] == '*') {
+                index++;
                 while (sens[++index] != '*' || sens[++index] != '/')
                     ;
             } else
@@ -103,14 +108,13 @@ public class Tokenizer {
 
         default:// deal with: number, boolean, null
 
-            while (sens[++index] != ' ' && sens[index] != ',' && sens[index] != ']' && sens[index] != '}')
+            while (sens[++index] != ' ' && sens[index] != '\t' && sens[index] != '\r' && sens[index] != '\n' && sens[index] != ',' && sens[index] != ']' && sens[index] != '}')
                 ;
             // index++;
             // endsWith ' '
             // ;
             length = index - start;
-            if (length == 0)
-                throw new RuntimeException("0");
+
             String special = new String(sens, start, length);
             if (special.equals("true") || special.equals("false"))
                 type = TokenType.BOOLEAN_TOKEN;
@@ -132,33 +136,16 @@ public class Tokenizer {
         try {
             for (; index < sens.length;) {
                 nextToken();
-                parseToken();
+                if (index < sens.length)
+                    parseToken();
+                else
+                    break;
             }
             return tokens;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new SyntaxException("提前遇到EOF");
+            throw new SyntaxException("格式错误", e);
         }
     }
-
-    // public static void main(String[] args) {
-    // Tokenizer tokenizer = new Tokenizer();
-    //
-    // for (; tokenizer.index < tokenizer.sens.length;) {
-    // tokenizer.nextToken();
-    // tokenizer.parseToken();
-    // }
-    // //
-    // for (Token token : tokenizer.tokens) {
-    // Log.d("start: " + token.start);
-    // Log.d("Length: " + token.length);
-    // Log.d("Type: " + token.type);
-    // Log.d("String: "
-    // + new String(tokenizer.sens, token.start, token.length));
-    // Log.d("----------------------------------------");
-    // }
-    //
-    // Log.d(tokenizer.tokens.size());
-    // }
 }
 
 class TokenList extends ArrayList<Token> {
