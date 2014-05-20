@@ -1,4 +1,5 @@
 package com.netease.json;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
@@ -10,24 +11,6 @@ import java.util.Stack;
  * @author hzzhenglh 2014年5月19日
  */
 public class Parser {
-    public static void main(String[] args) {
-
-        Parser main = new Parser();
-        JsonObject jo = (JsonObject) main.toObjectTree();
-        Object name = jo.get("name");
-        Log.d("name: " + name);
-
-        JsonObject jp = (JsonObject) jo.get("project");
-        Object id = jp.get("id");
-        Log.d("id: " + id);
-
-        JsonArray ja = (JsonArray) jo.get("members");
-        Log.d("members:\t");
-        jo = (JsonObject) ja.get(1);
-        name = jo.get("name");
-        Log.d("name: " + name);
-        Log.d("end");
-    }
 
     /**
      * 
@@ -42,43 +25,31 @@ public class Parser {
     // "{", "id", ":", "X",
     // ",", "expire", ":", "1000", "}", "}"};
 
-    private Element[] elements = null;/*
-                                       * { new Element(ElementType.OBJ_START, "{"), new
-                                       * Element(ElementType.KEY, "name"), new
-                                       * Element(ElementType.SEP, ":"), new Element(ElementType.VAL,
-                                       * "hzzhenglh"), new Element(ElementType.FIELD, ","), new
-                                       * Element(ElementType.KEY, "project"), new
-                                       * Element(ElementType.SEP, ":"), new
-                                       * Element(ElementType.OBJ_START, "{"), new
-                                       * Element(ElementType.KEY, "id"), new
-                                       * Element(ElementType.SEP, ":"), new Element(ElementType.VAL,
-                                       * "X"), new Element(ElementType.FIELD, ","), new
-                                       * Element(ElementType.KEY, "expire"), new
-                                       * Element(ElementType.SEP, ":"), new Element(ElementType.VAL,
-                                       * 1000), new Element(ElementType.ObJ_END, "}"), new
-                                       * Element(ElementType.FIELD, ","), new
-                                       * Element(ElementType.KEY, "members"), new
-                                       * Element(ElementType.SEP, ":"), new
-                                       * Element(ElementType.ARR_START, "["), new
-                                       * Element(ElementType.ARR_VAL, "郑林海"), new
-                                       * Element(ElementType.FIELD, ","), new
-                                       * Element(ElementType.OBJ_START, "{"), new
-                                       * Element(ElementType.KEY, "name"), new
-                                       * Element(ElementType.SEP, ":"), new Element(ElementType.VAL,
-                                       * "hzzhenglh"), new Element(ElementType.FIELD, ","), new
-                                       * Element(ElementType.KEY, "project"), new
-                                       * Element(ElementType.SEP, ":"), new
-                                       * Element(ElementType.OBJ_START, "{"), new
-                                       * Element(ElementType.KEY, "id"), new
-                                       * Element(ElementType.SEP, ":"), new Element(ElementType.VAL,
-                                       * "X"), new Element(ElementType.FIELD, ","), new
-                                       * Element(ElementType.KEY, "expire"), new
-                                       * Element(ElementType.SEP, ":"), new Element(ElementType.VAL,
-                                       * 1000), new Element(ElementType.ObJ_END, "}"), new
-                                       * Element(ElementType.ObJ_END, "}"), new
-                                       * Element(ElementType.ARR_END, "]"), new
-                                       * Element(ElementType.ObJ_END, "}") };
-                                       */
+    private Element[] elements = null;
+
+    /*
+     * { new Element(ElementType.OBJ_START, "{"), new Element(ElementType.KEY, "name"), new
+     * Element(ElementType.SEP, ":"), new Element(ElementType.VAL, "hzzhenglh"), new
+     * Element(ElementType.FIELD, ","), new Element(ElementType.KEY, "project"), new
+     * Element(ElementType.SEP, ":"), new Element(ElementType.OBJ_START, "{"), new
+     * Element(ElementType.KEY, "id"), new Element(ElementType.SEP, ":"), new
+     * Element(ElementType.VAL, "X"), new Element(ElementType.FIELD, ","), new
+     * Element(ElementType.KEY, "expire"), new Element(ElementType.SEP, ":"), new
+     * Element(ElementType.VAL, 1000), new Element(ElementType.ObJ_END, "}"), new
+     * Element(ElementType.FIELD, ","), new Element(ElementType.KEY, "members"), new
+     * Element(ElementType.SEP, ":"), new Element(ElementType.ARR_START, "["), new
+     * Element(ElementType.ARR_VAL, "郑林海"), new Element(ElementType.FIELD, ","), new
+     * Element(ElementType.OBJ_START, "{"), new Element(ElementType.KEY, "name"), new
+     * Element(ElementType.SEP, ":"), new Element(ElementType.VAL, "hzzhenglh"), new
+     * Element(ElementType.FIELD, ","), new Element(ElementType.KEY, "project"), new
+     * Element(ElementType.SEP, ":"), new Element(ElementType.OBJ_START, "{"), new
+     * Element(ElementType.KEY, "id"), new Element(ElementType.SEP, ":"), new
+     * Element(ElementType.VAL, "X"), new Element(ElementType.FIELD, ","), new
+     * Element(ElementType.KEY, "expire"), new Element(ElementType.SEP, ":"), new
+     * Element(ElementType.VAL, 1000), new Element(ElementType.ObJ_END, "}"), new
+     * Element(ElementType.ObJ_END, "}"), new Element(ElementType.ARR_END, "]"), new
+     * Element(ElementType.ObJ_END, "}") };
+     */
 
     private static final String OBJECT_START = "{";
 
@@ -305,7 +276,7 @@ public class Parser {
                 try {
                     res = new BigDecimal(token.content);
                 } catch (NumberFormatException e3) {
-                    throw new SyntaxException("无法识别的字符串：" + token.content);
+                    throw new SyntaxException("无法识别的字符串：" + token.content + "|");
                 }
             }
         }
