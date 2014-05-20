@@ -1,14 +1,8 @@
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
-/**
- * @(#)JsonObject.java, 2014年5月19日.
- *
- * Copyright 2014 Netease, Inc. All rights reserved.
- * NETEASE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
 
 /**
  *
@@ -26,18 +20,49 @@ public class JsonObject {
         properties.put(key, val);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        StringBuilder sb = new StringBuilder();
+
         Set<Entry<Object, Object>> entrySet = properties.entrySet();
-        for (Map.Entry s : entrySet) {
-            sb.append(s.getKey() + " = " + s.getValue() + ",");
+        Iterator<Entry<Object, Object>> it = entrySet.iterator();
+        if (!it.hasNext())
+            return "{}";
+        StringBuilder sb = new StringBuilder("{");
+        for (;;) {
+            Entry<Object, Object> e = it.next();
+            Object key = e.getKey();
+            Object value = e.getValue();
+            sb.append('\"').append(key.toString()).append("\": ");
+            if (value == null) // or skip ?
+                sb.append("null");
+            else if (JsonUtil.isPrimitive(value) || value instanceof JsonArray || value instanceof JsonObject)
+                sb.append(value);
+            else
+                sb.append('\"').append(value).append("\"");
+            if (!it.hasNext())
+                return sb.append('}').toString();
+            sb.append(", ");
         }
-        return sb.deleteCharAt(sb.length() - 1).toString();
+
+    }
+
+    public static void main(String[] args) {
+
+        JsonObject jo = new JsonObject();
+        jo.put("name", "hzzhenglh");
+        jo.put("age", 17);
+
+        System.out.println(jo);
+
+        JsonObject jos = new JsonObject();
+        jos.put("obj", jo);
+
+        JsonArray ja = new JsonArray();
+        ja.add("nihao");
+        ja.add(Boolean.TRUE);
+        ja.add(jo);
+
+        jos.put("ls", ja);
+        System.out.println(jos);
     }
 }
