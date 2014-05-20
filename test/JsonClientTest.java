@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.netease.json.JSON;
 import com.netease.json.JsonArray;
 import com.netease.json.JsonObject;
+import com.netease.json.JsonUtil;
 import com.netease.json.Log;
 
 /**
@@ -79,7 +80,7 @@ public class JsonClientTest {
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
-            sb.append(line);
+            sb.append(line).append(JsonUtil.NEW_LINE);
         }
         reader.close();
         return sb.toString();

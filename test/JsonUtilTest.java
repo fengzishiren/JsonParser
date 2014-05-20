@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.io.FileReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -30,23 +31,23 @@ public class JsonUtilTest {
         int a = 10;
         result = JsonUtil.isPrimitive(a);
         assertTrue(result);
-        
+
         byte b = 3;
         result = JsonUtil.isPrimitive(b);
         assertTrue(result);
-        
+
         char c = 'a';
         result = JsonUtil.isPrimitive(c);
         assertTrue(result);
-        
+
         float f = 2.22f;
         result = JsonUtil.isPrimitive(f);
         assertTrue(result);
-        
+
         double d = 2323.3332323;
         result = JsonUtil.isPrimitive(d);
         assertTrue(result);
-        
+
         long l = System.currentTimeMillis();
         result = JsonUtil.isPrimitive(l);
         assertTrue(result);
@@ -62,6 +63,13 @@ public class JsonUtilTest {
         map.put("name", "hzzhenglh");
         map.put("test", new Data());
         Log.d(JsonUtil.toJson(map));
+    }
+
+    @Test
+    public void testRead() throws Exception {
+
+        String s = JsonUtil.read(new FileReader("testsmall.json"));
+        Log.i(s);
     }
 }
 
