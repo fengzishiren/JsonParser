@@ -1,4 +1,4 @@
-package com.netease.json;
+package com.lunatic.json;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;

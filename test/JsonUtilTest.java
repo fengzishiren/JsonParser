@@ -9,8 +9,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.netease.json.JsonUtil;
-import com.netease.json.Log;
+import com.lunatic.json.JsonUtil;
+import com.lunatic.json.Log;
 /**
  *
  * @author hzzhenglh

@@ -1,4 +1,4 @@
-package com.netease.json;
+package com.lunatic.json;
 import java.io.IOException;
 import java.io.Reader;
 

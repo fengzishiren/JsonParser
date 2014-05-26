@@ -1,4 +1,4 @@
-package com.netease.json;
+package com.lunatic.json;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

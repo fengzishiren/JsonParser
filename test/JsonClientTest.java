@@ -4,11 +4,11 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.netease.json.JSON;
-import com.netease.json.JsonArray;
-import com.netease.json.JsonObject;
-import com.netease.json.JsonUtil;
-import com.netease.json.Log;
+import com.lunatic.json.JSON;
+import com.lunatic.json.JsonArray;
+import com.lunatic.json.JsonObject;
+import com.lunatic.json.JsonUtil;
+import com.lunatic.json.Log;
 
 /**
  *
