@@ -72,13 +72,16 @@ public class Parser {
         return toObjectTree();
     }
 
+    /**
+     * push直到遇到封闭符号
+     * 
+     */
     private void push() {
         for (; pos < elements.length; pos++) {
             stack.push(elements[pos]);
 
             // json中有null类型时 content = null；
             Object content = elements[pos].content;
-            // Log.e(content);
 
             if (OBJECT_END.equals(content)) {
                 expect = OBJECT_START;
@@ -94,8 +97,11 @@ public class Parser {
             throw new SyntaxException("提前结束EOF");
     }
 
-    // { name : value, ... } 倒序
-    // [ val, val, obj] 倒序
+    /**
+     * pop直到遇到开放符号
+     * 
+     * @return { name : value, ... } 倒序，[ val, val, obj] 倒序
+     */
     private List<Element> pop() {
         ArrayList<Element> dataList = new ArrayList<Element>();
         Element pop = null;
