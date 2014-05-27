@@ -51,13 +51,13 @@ public class Parser {
      * Element(ElementType.ObJ_END, "}") };
      */
 
-    private static final String OBJECT_START = "{";
+    private static final String OBJECT_START = "{";//开放符号
 
-    private static final String ARRAY_START = "[";
+    private static final String ARRAY_START = "[";//开放符号
 
-    private static final String OBJECT_END = "}";
+    private static final String OBJECT_END = "}";//封闭符号
 
-    private static final String ARRAY_END = "]";
+    private static final String ARRAY_END = "]";//封闭符号
 
     private int pos = 0;
 
@@ -68,7 +68,7 @@ public class Parser {
     public Object parse(String json) {
         Tokenizer tokenizer = new Tokenizer(json);
         TokenList tokens = tokenizer.parseTokens();
-        elements = scanToken2Element(tokens);
+        typeInference(tokens);
         return toObjectTree();
     }
 
@@ -118,18 +118,16 @@ public class Parser {
      * 
      * [ val, arrval, .... ] OR {"":""}
      * 
-     * @param eles
+     * @param elements
      * @return
      */
-    public Element asObject(List<Element> eles) {
-        Log.d("待转换为JSONObject的元素信息列表：");
-        for (Element e : eles) {
-            Log.d("\t" + e);
-        }
+    public Element asObject(List<Element> elements) {
+        Log.d("待转换为JSONObject的元素信息列表： " + elements);
+        
         JsonObject jo = null;
         JsonArray ja = null;
-        for (int i = eles.size() - 1; i >= 0; i--) {
-            Element curr = eles.get(i);
+        for (int i = elements.size() - 1; i >= 0; i--) {
+            Element curr = elements.get(i);
 
             switch (curr.type) {
             case ElementType.OBJ_START: // 可能是第一个元素
@@ -153,10 +151,10 @@ public class Parser {
             case ElementType.SEP:
             case ElementType.VAL:
                 assertNotNull(jo, "必须以'{'开始");
-                Log.d("put:" + curr.content + "\t" + eles.get(i).content);
-                if (curr.type == ElementType.KEY && eles.get(--i).type == ElementType.SEP) {
+                Log.d("put:" + curr.content + "\t" + elements.get(i).content);
+                if (curr.type == ElementType.KEY && elements.get(--i).type == ElementType.SEP) {
                     i--;
-                    jo.put(curr.getContent(), eles.get(i).getContent());
+                    jo.put(curr.getContent(), elements.get(i).getContent());
                 } else
                     throw new SyntaxException(curr.content + "必须在‘：’之后");
                 break;
@@ -197,30 +195,35 @@ public class Parser {
         return e == null ? null : e.content;
     }
 
-    private Element[] scanToken2Element(TokenList tokens) {
-        Element[] eles = new Element[tokens.size()];
+    /**
+     * 扫描token 解析为语义化的元素列表
+     * @param tokens
+     * @return
+     */
+    private void typeInference(TokenList tokens) {
+    	elements = new Element[tokens.size()];
         int pos = 0;
         for (int i = 0; i < tokens.size(); i++) {
 
             Token token = tokens.get(i);
             switch (token.type) {
             case TokenType.CURLY_BRACKET_LEFT:
-                eles[pos] = new Element(ElementType.OBJ_START, token.content);
+                elements[pos] = new Element(ElementType.OBJ_START, token.content);
                 break;
             case TokenType.CURLY_BRACKET_RIGHT:
-                eles[pos] = new Element(ElementType.ObJ_END, token.content);
+                elements[pos] = new Element(ElementType.ObJ_END, token.content);
                 break;
             case TokenType.SQUARE_BRACKET_LEFT:
-                eles[pos] = new Element(ElementType.ARR_START, token.content);
+                elements[pos] = new Element(ElementType.ARR_START, token.content);
                 break;
             case TokenType.SQUARE_BRACKET_RIGHT:
-                eles[pos] = new Element(ElementType.ARR_END, token.content);
+                elements[pos] = new Element(ElementType.ARR_END, token.content);
                 break;
             case TokenType.COLON:
-                eles[pos] = new Element(ElementType.SEP, token.content);
+                elements[pos] = new Element(ElementType.SEP, token.content);
                 break;
             case TokenType.COMMA:
-                eles[pos] = new Element(ElementType.FIELD, token.content);
+                elements[pos] = new Element(ElementType.FIELD, token.content);
                 break;
             case TokenType.STRING_TOKEN:
                 Element e = new Element(token.content);
@@ -232,7 +235,7 @@ public class Parser {
                     e.type = ElementType.VAL;
                 else
                     e.type = ElementType.ARR_VAL;
-                eles[pos] = e;
+                elements[pos] = e;
                 break;
 
             case TokenType.NUMBER_TOKEN:
@@ -240,24 +243,23 @@ public class Parser {
                 Object res = obtainNumber(token);
                 Token tk = tokens.get(i - 1);
                 boolean isVal = isValType(tk.type, token.content);
-                eles[pos] = new Element(isVal ? ElementType.VAL : ElementType.ARR_VAL, res);
+                elements[pos] = new Element(isVal ? ElementType.VAL : ElementType.ARR_VAL, res);
                 break;
 
             case TokenType.BOOLEAN_TOKEN:
                 Boolean b = token.content.equals("true") ? true : false;
                 tk = tokens.get(i - 1);
                 isVal = isValType(tk.type, token.content);
-                eles[pos] = new Element(isVal ? ElementType.VAL : ElementType.ARR_VAL, b);
+                elements[pos] = new Element(isVal ? ElementType.VAL : ElementType.ARR_VAL, b);
                 break;
             case TokenType.NULL_TOKEN:
                 tk = tokens.get(i - 1);
                 isVal = isValType(tk.type, token.content);
-                eles[pos] = new Element(isVal ? ElementType.VAL : ElementType.ARR_VAL, new Null());
+                elements[pos] = new Element(isVal ? ElementType.VAL : ElementType.ARR_VAL, new Null());
                 break;
             }
             pos++;
         }
-        return eles;
     }
 
     private Object obtainNumber(Token token) {
