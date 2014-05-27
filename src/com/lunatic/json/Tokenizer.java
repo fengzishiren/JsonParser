@@ -107,8 +107,8 @@ public class Tokenizer {
 			break;
 
 		default:// deal with: number, boolean, null
-
-			while (sens[++index] != ' ' && sens[index] != '\t'
+			//第一个字符不可能为空
+			while (++index != sens.length && sens[index] != ' ' && sens[index] != '\t'
 					&& sens[index] != '\r' && sens[index] != '\n'
 					&& sens[index] != ',' && sens[index] != ']'
 					&& sens[index] != '}')
