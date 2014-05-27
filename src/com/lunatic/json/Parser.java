@@ -171,10 +171,7 @@ public class Parser {
                 break;
             }
         }
-        Log.d("~~~~~~~~~~~~~~~~" + jo);
         return jo != null ? new Element(ElementType.OBJECT, jo) : new Element(ElementType.ARRAY, ja);
-        // return new Element(jo != null ? ElementType.VAL : ElementType.OBJECT, jo != null ? jo :
-        // ja);
     }
 
     /**
@@ -188,7 +185,6 @@ public class Parser {
         for (;;) {
             push();
             List<Element> tks = pop();
-            Log.d("----------------------------------");
             e = asObject(tks);
 
             if (stack.isEmpty())
