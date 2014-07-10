@@ -8,7 +8,7 @@ public class JSON {
         return new Parser().parse(json);
     }
 
-    public Object fromString(Reader reader) throws IOException {
+    public static Object fromString(Reader reader) throws IOException {
         return new Parser().parse(JsonUtil.read(reader));
     }
 
