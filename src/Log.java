@@ -1,7 +1,6 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@SuppressWarnings("unused")
 public class Log {
 
 	private static final SimpleDateFormat sdf = new SimpleDateFormat(
