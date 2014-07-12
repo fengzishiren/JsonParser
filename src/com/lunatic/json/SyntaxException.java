@@ -1,3 +1,4 @@
+package com.lunatic.json;
 public class SyntaxException extends RuntimeException {
 
 	/**
