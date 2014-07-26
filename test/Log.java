@@ -1,4 +1,3 @@
-package com.lunatic.json;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,7 +8,7 @@ public class Log {
 			"yyyy-mm-dd HH:mm:ss");
 	private static final String format = "%-20s %-8s\t- %s\n";
 
-	private static final int CURRENT_LEVEL = Level.INFO;
+	private static final int CURRENT_LEVEL = Level.DEBUG;
 
 	public static void d(Object o) {
 		if (Level.DEBUG >= CURRENT_LEVEL)
@@ -43,7 +42,7 @@ public class Log {
 		int ERROR = 3;
 		int CLOSE = 5;
 	}
-	
+
 	public static void main(String[] args) {
 		Log.d("hello");
 		Log.i("hello");
