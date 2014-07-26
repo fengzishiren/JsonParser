@@ -1,13 +1,11 @@
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import org.junit.Test;
 
 /**
  * 
- * @author hzzhenglh 2014年5月20日
+ * @author lunatic
+ * 2014年7月26日
  */
 public class JSONTest {
 	/**
