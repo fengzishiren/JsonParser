@@ -14,7 +14,10 @@ public class Parser {
 	public Object parse(String text) {
 		lexer.load(text);
 		look = lexer.scan();
-		return parse();
+		Object o = parse();
+		if (look != null)
+			error("Expecting \"EOF\"");
+		return o;
 	}
 
 	private void move() {
