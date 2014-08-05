@@ -32,7 +32,7 @@ public class Parser {
 		if (look.type == type)
 			move();
 		else
-			error("Expect \"%s\"", Tag.types[type]);
+			error("Expect \"%s\"", Tag.types[type - 1]);
 	}
 
 	private Object parse() {
