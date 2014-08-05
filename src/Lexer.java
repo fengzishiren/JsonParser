@@ -1,9 +1,9 @@
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * 
- * @author lunatic
- * 2014年7月26日
+ * @author lunatic 2014年7月26日
  */
 public class Lexer {
 
@@ -77,8 +77,8 @@ public class Lexer {
 			forward();
 			return new Token(text.substring(start, offset), type, row, col);
 		}
-		//////
-		//类型推断部分
+		// ////
+		// 类型推断部分
 		// 'STRING', 'NUMBER', 'NULL', 'TRUE', 'FALSE',
 		if (c == '"') {
 			forward();
@@ -115,20 +115,26 @@ public class Lexer {
 				S.syntaxError("Expect \":\" or \",\" or \"}\" or \"]\"", row,
 						col);
 			}
-			type = text.charAt(offset) == ':' ? Tag.KEY_STRING
-					: Tag.STRING;
+			type = text.charAt(offset) == ':' ? Tag.KEY_STRING : Tag.STRING;
 			return new Token(sb.toString(), type, thisRow, thisCol);
 		} else {
-			do {
+			while (text.length() != offset
+					&& (Character.isLetterOrDigit(text.charAt(offset))
+							|| text.charAt(offset) == '.'
+							|| text.charAt(offset) == '+' || text
+							.charAt(offset) == '-')) {
 				forward();
-			} while (text.length() != offset
-					&& Character.isLetterOrDigit(text.charAt(offset)));
-
+			}
+			if (start == offset)
+				S.syntaxError(
+						String.format("Unrecognized \"%c\"",
+								text.charAt(offset)), row, col);
 			if (offset == text.length()) {
 				S.syntaxError("Expect \",\" or \"}\" or \"]\"", row, col);
 			}
+			int thisRow = row, thisCol = col;
 			String content = text.substring(start, offset);
-			
+
 			Object val = null;
 			if ("null".equals(content)) {
 				type = Tag.NULL;
@@ -168,13 +174,12 @@ public class Lexer {
 				}
 				if (!ok)
 					S.syntaxError(
-							String.format("Unrecognized \"%s\"", content), row,
-							col);
+							String.format("Unrecognized \"%s\"", content), thisRow,
+							thisCol);
 			}
-			return new Token(val, type, row, col);
+			return new Token(val, type, thisRow, thisCol);
 		}
 	}
-
 
 	public static void main(String[] args) {
 		String example = "{\"firstName\":\"Brett\",\"lastName\":\"McLaughlin\",\"email\":\"aaaa\\\"bbbb\", \"age\":18, \"sex\":true, \"wife\":null}";
