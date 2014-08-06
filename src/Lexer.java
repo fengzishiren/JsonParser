@@ -147,7 +147,7 @@ public class Lexer {
 			} else {
 				type = Tag.NUMBER;
 				boolean ok = false;
-				if (content.indexOf('.') == -1) {
+				if (content.indexOf('.') == content.indexOf('E')) {
 					try {
 						val = Integer.parseInt(content);
 						ok = true;
