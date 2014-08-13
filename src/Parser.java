@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 
- * @author lunatic
- * 2014年7月26日
+ * @author lunatic 2014年7月26日
  */
 public class Parser {
 	private Lexer lexer;
@@ -29,13 +31,14 @@ public class Parser {
 	}
 
 	private void match(byte type) {
-		if (look.type == type)
+		if (look != null && look.type == type)
 			move();
 		else
 			error("Expect \"%s\"", Tag.types[type - 1]);
 	}
 
 	private Object parse() {
+		restrict(Tag.OPEN_BRACE, Tag.OPEN_BRACKET);
 		if (look.type == Tag.OPEN_BRACE)
 			return obj();
 		if (look.type == Tag.OPEN_BRACKET)
@@ -46,19 +49,23 @@ public class Parser {
 
 	private JsonObject obj() {
 		JsonObject jo = new JsonObject();
-		
+
 		match(Tag.OPEN_BRACE);
-		while (look.type != Tag.CLOSE_BRACE) {
+		restrict(Tag.KEY_STRING, Tag.CLOSE_BRACE);
+		if (look.type != Tag.CLOSE_BRACE) {
 			Pair pair = pair();
 			jo.put(pair.key, pair.val);
 
-			if (look.type == Tag.COMMA)
+			while (restrict(Tag.COMMA, Tag.CLOSE_BRACE)
+					&& look.type == Tag.COMMA) {
 				match(Tag.COMMA);
-			else
-				break;
+				pair = pair();
+				jo.put(pair.key, pair.val);
+			}
+
 		}
 		match(Tag.CLOSE_BRACE);
-		
+
 		return jo;
 	}
 
@@ -66,20 +73,25 @@ public class Parser {
 		JsonArray ja = new JsonArray();
 
 		match(Tag.OPEN_BRACKET);
-		while (look.type != Tag.CLOSE_BRACKET) {
+		restrict(Tag.STRING, Tag.NULL, Tag.NUMBER, Tag.BOOLEAN, Tag.OPEN_BRACE,
+				Tag.OPEN_BRACKET, Tag.CLOSE_BRACKET);
+		if (look.type != Tag.CLOSE_BRACKET) {
 			Object value = value();
 			ja.add(value);
-			if (look.type == Tag.COMMA)
+			while (restrict(Tag.COMMA, Tag.CLOSE_BRACKET)
+					&& look.type == Tag.COMMA) {
 				match(Tag.COMMA);
-			else
-				break;
+				value = value();
+				ja.add(value);
+			}
 		}
 		match(Tag.CLOSE_BRACKET);
-		
+
 		return ja;
 	}
 
 	private Pair pair() {
+		restrict(Tag.KEY_STRING);
 		Object key = look.content;
 		match(Tag.KEY_STRING);
 		match(Tag.COLON);
@@ -88,6 +100,8 @@ public class Parser {
 	}
 
 	private Object value() {
+		restrict(Tag.STRING, Tag.NULL, Tag.NUMBER, Tag.BOOLEAN, Tag.OPEN_BRACE,
+				Tag.OPEN_BRACKET);
 		if (isVal()) {
 			Object value = look.content;
 			move();
@@ -102,14 +116,28 @@ public class Parser {
 				|| look.type == Tag.STRING || look.type == Tag.NULL;
 
 	}
-	
+
+	private boolean restrict(byte... types) {
+		if (look != null) {
+			for (byte b : types) {
+				if (look.type == b)
+					return true;
+			}
+		}
+		List<String> ls = new ArrayList<String>(types.length);
+		for (byte b : types) {
+			ls.add(String.format("\"%s\"", Tag.types[b - 1]));
+		}
+		error("Expect %s", U.join(" ", ls));
+		return false;
+	}
+
 	class Pair {
 		Object key, val;
+
 		public Pair(Object key, Object val) {
 			this.key = key;
 			this.val = val;
 		}
 	}
 }
-
-
