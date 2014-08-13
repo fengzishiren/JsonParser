@@ -20,13 +20,5 @@ public class JSON {
 	public static Object fromFile(String filename) throws FileNotFoundException, IOException {
 		return parser.parse(U.read(new FileReader(filename)));
 	}
-	public static void main(String[] args) throws FileNotFoundException,
-			IOException {
-		String text = "{\"firstName\":\"Brett\",\"lastName\":\"McLaughlin\",\"email\":\"aaaa\\\"bbbb\", \"age\":18, \"sex\":true, \"wife\":null}";
-
-		JsonObject jo = (JsonObject) parse(text);
-		System.out.println(text);
-		System.out.println(jo.toString());
-	}
 
 }
