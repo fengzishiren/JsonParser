@@ -6,8 +6,7 @@ import java.util.Set;
 
 /**
  * 
- * @author lunatic
- * 2014年7月26日
+ * @author lunatic 2014年7月26日
  */
 public class JsonObject {
 	private Map<Object, Object> properties = new HashMap<Object, Object>();

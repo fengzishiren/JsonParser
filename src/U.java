@@ -163,18 +163,19 @@ public class U {
 			sb.append(it.next());
 			if (it.hasNext())
 				sb.append(sep);
-			else break;
+			else
+				break;
 		}
 		return sb.toString();
 	}
-	
-	public static final String join(String sep, String...ss) {
+
+	public static final String join(String sep, String... ss) {
 		return join(sep, Arrays.asList(ss));
 	}
-	
+
 	public static void main(String[] args) {
 		String join = U.join(" ", Arrays.asList("a", "b"));
-		
+
 		System.out.println(join);
 	}
 

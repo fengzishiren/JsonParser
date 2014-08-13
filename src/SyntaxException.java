@@ -1,7 +1,6 @@
 /**
  * 
- * @author lunatic
- * 2014年7月26日
+ * @author lunatic 2014年7月26日
  */
 public class SyntaxException extends RuntimeException {
 
@@ -31,7 +30,7 @@ public class SyntaxException extends RuntimeException {
 	public SyntaxException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
-	
+
 	@Override
 	public String getMessage() {
 		return super.getMessage() + pos.toString();

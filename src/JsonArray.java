@@ -4,8 +4,7 @@ import java.util.List;
 
 /**
  * 
- * @author lunatic
- * 2014年7月26日
+ * @author lunatic 2014年7月26日
  */
 public class JsonArray {
 	private List<Object> array = new ArrayList<Object>();

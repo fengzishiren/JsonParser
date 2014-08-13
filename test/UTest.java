@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
+
 /**
  * 
- * @author lunatic
- * 2014年7月26日
+ * @author lunatic 2014年7月26日
  */
 public class UTest {
 	@Test
@@ -43,12 +43,12 @@ public class UTest {
 
 	}
 
-	@Test 
+	@Test
 	public void testJoin() throws Exception {
 		String join = U.join(" ", Arrays.asList("a", "b", "c "));
 		System.out.println(join);
 	}
-	
+
 	@Test
 	public void testToJson() throws Exception {
 

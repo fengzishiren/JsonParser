@@ -174,8 +174,8 @@ public class Lexer {
 				}
 				if (!ok)
 					S.syntaxError(
-							String.format("Unrecognized \"%s\"", content), thisRow,
-							thisCol);
+							String.format("Unrecognized \"%s\"", content),
+							thisRow, thisCol);
 			}
 			return new Token(val, type, thisRow, thisCol);
 		}

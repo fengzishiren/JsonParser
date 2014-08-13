@@ -17,7 +17,9 @@ public class JSON {
 	public static Object fromString(String text) {
 		return parser.parse(text);
 	}
-	public static Object fromFile(String filename) throws FileNotFoundException, IOException {
+
+	public static Object fromFile(String filename)
+			throws FileNotFoundException, IOException {
 		return parser.parse(U.read(new FileReader(filename)));
 	}
 

@@ -1,7 +1,6 @@
 /**
  * 
- * @author lunatic
- * 2014年7月26日
+ * @author lunatic 2014年7月26日
  */
 public class Pos {
 	int row;
