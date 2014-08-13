@@ -43,6 +43,12 @@ public class UTest {
 
 	}
 
+	@Test 
+	public void testJoin() throws Exception {
+		String join = U.join(" ", Arrays.asList("a", "b", "c "));
+		System.out.println(join);
+	}
+	
 	@Test
 	public void testToJson() throws Exception {
 

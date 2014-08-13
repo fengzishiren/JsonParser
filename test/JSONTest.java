@@ -4,8 +4,7 @@ import org.junit.Test;
 
 /**
  * 
- * @author lunatic
- * 2014年7月26日
+ * @author lunatic 2014年7月26日
  */
 public class JSONTest {
 	/**
@@ -56,9 +55,14 @@ public class JSONTest {
 		Log.i("T: " + jo);
 	}
 
-	public static void main(String[] args) throws IOException {
-		String j = UTest.readJsonFromFile("test.json");
-		System.out.println(j);
-	}
+	@Test
+	public void testError() throws Exception {
+		String json = "{\"test\":10.1E+4}";
+		JsonObject jo = (JsonObject) JSON.fromString(json);
+		Log.i("E:" + jo);
 
+		json = "{\"test\":10.1E+4},";
+		jo = (JsonObject) JSON.fromString(json);
+		Log.i("E:" + jo);
+	}
 }
