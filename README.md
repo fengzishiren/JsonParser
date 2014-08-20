@@ -33,5 +33,5 @@ JSON is YAML ......
 
 #参考
 * json官网：http://www.json.org/
-* yaml官网：https://github.com/gitpan/YAML-Syck
+* yaml官网：http://www.yaml.org/
 * 唐鳳（Audrey Tang）: http://cpansearch.perl.org/src/TODDR/YAML-Syck-1.28_01/
