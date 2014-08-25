@@ -15,13 +15,37 @@ JsonParser
 \n
 \r
 \t
-（不支持\u four-hex-digits）
+\u four-hex-digits）
 * 支持Json数据与Java对象的序列和反序列化
 * 遇到解析错误可精确定位到具体的某一行的某一列 这点甚至比许多商用的解释器、编译器更完善精确
-* 性能没有做过具体测评 且还在开发阶段 下一步是对unicode的支持
+* 性能没有做过具体测评 尚在开发阶段
 
+####关于Unicode编码
+以下为合法的JSON格式并且能被正确解析：
+<br>
+{<br>
+&#160; &#160; &#160; &#160;":octopus:": ":oden:",<br>
+&#160; &#160; &#160; &#160;":zap:": ":octocat:",<br>
+&#160; &#160; &#160; &#160;":spaghetti:":  [
+        ":spaghetti:",
+        ":cookie:",
+        ":stew:",
+        ":ice_cream:",
+        ":icecream:",
+        ":sushi:",
+        ":curry:",
+        ":custard:",
+        ":dango:",
+        ":pizza::ramen:",
+        ":fried_shrimp:",
+        ":fries:",
+        ":chocolate_bar:",
+        ":hamburger:"
+    ]<br>
+}
 ##后续的开发
 JSON is YAML ......
+
 
 
 ##有问题反馈
@@ -35,3 +59,4 @@ JSON is YAML ......
 * json官网：http://www.json.org/
 * yaml官网：http://www.yaml.org/
 * 唐鳳（Audrey Tang）: http://cpansearch.perl.org/src/TODDR/YAML-Syck-1.28_01/
+* Unicode标准：http://www.unicode.org/charts/PDF/Unicode-6.1/U61-1F300.pdf
