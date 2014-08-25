@@ -21,7 +21,7 @@ JsonParser
 * 性能没有做过具体测评 尚在开发阶段
 
 ####关于Unicode编码
-以下为合法的JSON格式并且能被正确解析：
+使用Emoji书写的可以被正确解析的json示例：
 <br>
 {<br>
 &#160; &#160; &#160; &#160;":octopus:": ":oden:",<br>
@@ -43,6 +43,7 @@ JsonParser
         ":hamburger:"
     ]<br>
 }
+
 ##后续的开发
 JSON is YAML ......
 
