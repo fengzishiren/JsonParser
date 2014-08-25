@@ -8,19 +8,22 @@ import java.io.IOException;
  */
 public class JSON {
 
-	private static Parser parser = new Parser();
 
 	public static Object parse(String text) {
-		return parser.parse(text);
+		return new Parser().parse(text);
 	}
 
 	public static Object fromString(String text) {
-		return parser.parse(text);
+		return parse(text);
 	}
 
 	public static Object fromFile(String filename)
 			throws FileNotFoundException, IOException {
-		return parser.parse(U.read(new FileReader(filename)));
+		return parse(U.read(new FileReader(filename)));
+	}
+	
+	public static String toJSON(Object jo) {
+	    return U.toJson(jo);
 	}
 
 }
