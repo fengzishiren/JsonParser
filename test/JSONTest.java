@@ -15,14 +15,14 @@ public class JSONTest {
      */
     @Test
     public void testFoundation() {
-        String text = "{\"name\": \"hzzhenglh\"}";
+        String text = "{\"name\": \"lunatic\"}";
         JsonObject jo = (JsonObject) JSON.fromString(text);
 
         Log.d("------------------------------------------");
         Object object = jo.get("name");
         Log.i(object);
 
-        text = "{" + "\"name\": \"hzzhenglh\"," + "\"hobby\": ["
+        text = "{" + "\"name\": \"lunatic\"," + "\"hobby\": ["
             + "\"lanqiu\"," + "            \"yumaoqiu\"" + ", null]}";
         Log.d(text);
 
@@ -33,7 +33,7 @@ public class JSONTest {
         object = jo.get("name");
         Log.i(object);
 
-        text = "[\"郑林海\", \"hzzhenglh@corpnetease.com\", 23]";
+        text = "[\"郑林海\", \"lunaticlunatic\", 23]";
         Log.d(text);
 
         ja = (JsonArray) JSON.fromString(text);

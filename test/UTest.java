@@ -55,7 +55,7 @@ public class UTest {
 		@SuppressWarnings("unused")
 		List<Data> list = Arrays.asList(new Data(), new Data());
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("name", "hzzhenglh");
+		map.put("name", "lunatic");
 		map.put("test", new Data());
 		Log.d(U.toJson(map));
 	}
@@ -75,7 +75,7 @@ public class UTest {
 }
 
 class Data {
-	String name = "hzzhenglh";
+	String name = "lunatic";
 
 	int age = 22;
 
