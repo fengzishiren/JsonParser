@@ -46,23 +46,4 @@ public class JsonObject {
 
 	}
 
-	public static void main(String[] args) {
-
-		JsonObject jo = new JsonObject();
-		jo.put("name", "hzzhe\"nglh");
-		jo.put("age", 17);
-
-		System.out.println(jo);
-
-		JsonObject jos = new JsonObject();
-		jos.put("obj", jo);
-
-		JsonArray ja = new JsonArray();
-		ja.add("nihao");
-		ja.add(Boolean.TRUE);
-		ja.add(jo);
-
-		jos.put("ls", ja);
-		System.out.println(jos);
-	}
 }

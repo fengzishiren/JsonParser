@@ -48,12 +48,4 @@ public class JsonArray {
 
 	}
 
-	public static void main(String[] args) {
-		JsonArray ja = new JsonArray();
-		ja.add("nihao");
-		ja.add(Boolean.TRUE);
-		System.out.println(ja);
-		// boolean b = typeofObject(Integer.valueOf(99));
-		// System.out.println(b);
-	}
 }
