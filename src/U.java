@@ -173,10 +173,5 @@ public class U {
 		return join(sep, Arrays.asList(ss));
 	}
 
-	public static void main(String[] args) {
-		String join = U.join(" ", Arrays.asList("a", "b"));
-
-		System.out.println(join);
-	}
 
 }
