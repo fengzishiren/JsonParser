@@ -20,6 +20,8 @@ public class Lexer {
         // escape.put("\\u", '\u5845')
 }
 
+    private static final int UNICODE_WIDTH = 5, ESCAPE_WIDTH = 1;
+
     private String text;
 
     private int offset;
@@ -95,24 +97,24 @@ public class Lexer {
             StringBuilder sb = new StringBuilder();
             while (offset != text.length()) {
                 if (text.charAt(offset) == '\\') {
-                    boolean unicode = false;
+                    int step = ESCAPE_WIDTH;
                     if (offset + 1 == text.length()) {
                         S.syntaxError("Expect \"\"\"", row, col);
                     }
                     if (text.charAt(offset + 1) == 'u') {
-                        if (offset + 6 >= text.length())
+                        if (offset + UNICODE_WIDTH + 1 >= text.length())
                             S.syntaxError("Expect unicode character", row, col);
-                        unicode = true;
+                        step = UNICODE_WIDTH;
+                    }
+                    Character character = escape(text.substring(offset, offset
+                        + (step == UNICODE_WIDTH ? UNICODE_WIDTH + 1
+                            : ESCAPE_WIDTH + 1)));
+                    if (character == null) {
+                        S.syntaxError("Unsupport escape character", row, col);
                     } else {
-                        Character character = escape(text.substring(offset,
-                            offset + (unicode ? 6 : 2)));
-                        if (character == null) {
-                            S.syntaxError("Unsupport escape character", row,
-                                col);
-                        } else {
-                            sb.append(character);
+                        sb.append(character);
+                        while (step-- != 0)
                             forward();
-                        }
                     }
                 } else if (text.charAt(offset) == '"') {
                     break;
@@ -197,15 +199,4 @@ public class Lexer {
         }
     }
 
-    public static void main(String[] args) {
-        String example = "{\"firstName\":\"\u5845\",\"lastName\":\"McLaughlin\",\"email\":\"aaaa\\\"bbbb\", \"age\":18, \"sex\":true, \"wife\":null}";
-        System.out.println(example);
-        Lexer v2 = new Lexer();
-        v2.load(example);
-        Token token;
-        while ((token = v2.scan()) != null) {
-            System.out.println(token);
-        }
-        System.out.println("The end!");
-    }
 }
