@@ -63,7 +63,7 @@ public class U {
 
 	public static String toJson(Object o) {
 		if (o instanceof String || isPrimitive(o)) {
-			throw new SyntaxException("不是正确的JSON格式");
+			throw new SyntaxException("不支持基本类型和String转换");
 		}
 		return toJSON(o);
 	}
@@ -173,10 +173,5 @@ public class U {
 		return join(sep, Arrays.asList(ss));
 	}
 
-	public static void main(String[] args) {
-		String join = U.join(" ", Arrays.asList("a", "b"));
-
-		System.out.println(join);
-	}
 
 }
