@@ -18,13 +18,17 @@ public class Parser {
 		look = lexer.scan();
 		Object o = parse();
 		if (look != Token.EOF)
-			error("Expect \"%s\", but given \"%s\"", Tag.toString(Tag.EOF),
-					Tag.toString(look.type));
+			error(Token.EOF.type);
 		return o;
 	}
 
 	private void move() {
 		look = lexer.scan();
+	}
+
+	private void error(byte expect) {
+		error("Expect \"%s\", but given \"%s\"", Tag.toString(expect),
+				Tag.toString(look.type));
 	}
 
 	private void error(String msg, Object... args) {
@@ -35,8 +39,7 @@ public class Parser {
 		if (look.type == type)
 			move();
 		else
-			error("Expect \"%s\", but given \"%s\"", Tag.toString(type),
-					Tag.toString(look.type));
+			error(type);
 	}
 
 	private Object parse() {
