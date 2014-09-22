@@ -48,7 +48,7 @@ public class Lexer {
 	public Token scan() {
 		skipSpace();
 		if (text.length() == offset)
-			return null;
+			return Token.EOF;
 
 		int start = offset;
 		byte type = -1;

@@ -16,10 +16,7 @@ public class Pos {
 	}
 
 	public String toString() {
-		return "位置：(" + row + ", " + col + ")";
-	}
-
-	public static void main(String[] args) {
-		System.out.println(Pos.create(3, 3));
+		return "位置：(" + (row == col && row == -1 ? "EOF" : row + ", " + col)
+				+ ")";
 	}
 }

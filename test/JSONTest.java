@@ -61,7 +61,7 @@ public class JSONTest {
 		JsonObject jo = (JsonObject) JSON.fromString(json);
 		Log.i("E:" + jo);
 
-		json = "{\"test\":10.1E+4},";
+		json = "{\"test\":  ";
 		jo = (JsonObject) JSON.fromString(json);
 		Log.i("E:" + jo);
 	}

@@ -7,6 +7,8 @@ public class Token {
 	byte type;
 	Pos pos;
 
+	public static final Token EOF = new Token(null, Tag.EOF, -1, -1);
+
 	public Token(Object content, byte type, int row, int col) {
 		super();
 		this.content = content;
@@ -15,6 +17,6 @@ public class Token {
 	}
 
 	public String toString() {
-		return "[content: " + content + ", type: " + Tag.types[type - 1] + "]";
+		return "[content: " + content + ", type: " + Tag.toString(type)+ "]";
 	}
 }

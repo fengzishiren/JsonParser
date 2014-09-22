@@ -17,8 +17,9 @@ public class Parser {
 		lexer.load(text);
 		look = lexer.scan();
 		Object o = parse();
-		if (look != null)
-			error("Expecting \"EOF\"");
+		if (look != Token.EOF)
+			error("Expect \"%s\", but given \"%s\"", Tag.toString(Tag.EOF),
+					Tag.toString(look.type));
 		return o;
 	}
 
@@ -31,10 +32,11 @@ public class Parser {
 	}
 
 	private void match(byte type) {
-		if (look != null && look.type == type)
+		if (look.type == type)
 			move();
 		else
-			error("Expect \"%s\"", Tag.types[type - 1]);
+			error("Expect \"%s\", but given \"%s\"", Tag.toString(type),
+					Tag.toString(look.type));
 	}
 
 	private Object parse() {
@@ -43,8 +45,7 @@ public class Parser {
 			return obj();
 		if (look.type == Tag.OPEN_BRACKET)
 			return arr();
-		error("Expect \"{\" or \"[\"");
-		return null;//
+		return null;// never touch
 	}
 
 	private JsonObject obj() {
@@ -126,9 +127,10 @@ public class Parser {
 		}
 		List<String> ls = new ArrayList<String>(types.length);
 		for (byte b : types) {
-			ls.add(String.format("\"%s\"", Tag.types[b - 1]));
+			ls.add(String.format("%s", Tag.toString(b)));
 		}
-		error("Expect %s", U.join(" ", ls));
+		error("Expect \"%s\", but given \"%s\"", U.join(" | ", ls),
+				Tag.toString(look.type));
 		return false;
 	}
 
