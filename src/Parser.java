@@ -6,6 +6,7 @@ import java.util.List;
  * @author lunatic 2014年7月26日
  */
 public class Parser {
+	private static final String ERROR_FORMAT = "Expect \"%s\", but given \"%s\"";
 	private Lexer lexer;
 	private Token look;
 
@@ -27,8 +28,7 @@ public class Parser {
 	}
 
 	private void error(byte expect) {
-		error("Expect \"%s\", but given \"%s\"", Tag.toString(expect),
-				Tag.toString(look.type));
+		error(ERROR_FORMAT, Tag.toString(expect), Tag.toString(look.type));
 	}
 
 	private void error(String msg, Object... args) {
@@ -132,8 +132,7 @@ public class Parser {
 		for (byte b : types) {
 			ls.add(String.format("%s", Tag.toString(b)));
 		}
-		error("Expect \"%s\", but given \"%s\"", U.join(" | ", ls),
-				Tag.toString(look.type));
+		error(ERROR_FORMAT, U.join(" | ", ls), Tag.toString(look.type));
 		return false;
 	}
 
